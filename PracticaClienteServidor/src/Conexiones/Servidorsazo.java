@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Conexiones;
 
 import java.io.DataInputStream;
@@ -11,17 +7,13 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- *
- * @author axelm
- */
 public class Servidorsazo extends javax.swing.JFrame {
-    
+
     static ServerSocket ss;
     static Socket s;
     static DataInputStream din;
     static DataOutputStream dout;
-    
+
     public Servidorsazo() {
         initComponents();
     }
@@ -94,47 +86,49 @@ public class Servidorsazo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        try{
-        String msgout = "";
-        msgout=txtMensajeServer.getText().trim();
-        dout.writeUTF(msgout);
-        }catch(IOException e){
-            
+        try {
+            String msgout = "";
+            msgout = txtMensajeServer.getText().trim();
+            dout.writeUTF(msgout);
+            txtMensajeServer.setText("");
+        } catch (IOException e) {
+
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]){
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Servidorsazo().setVisible(true);
             }
         });
-        
+
+        // 
         String msgin = "";
-        try{
+        try {
             ss = new ServerSocket(4999);
             s = ss.accept();
-            
+
             din = new DataInputStream(s.getInputStream());
             dout = new DataOutputStream(s.getOutputStream());
-            
-            while(!msgin.equals("exit")){
+
+            while (!msgin.equals("exit")) {
                 msgin = din.readUTF();
-                txtMensajesServidor.setText(txtMensajesServidor.getText().trim()+"\nCliente: "+msgin);
+                txtMensajesServidor.setText(txtMensajesServidor.getText().trim() + "\nCliente: " + msgin);
             }
-            
-            ObjectOutputStream mensaje=new ObjectOutputStream(s.getOutputStream());
+
+            ObjectOutputStream mensaje = new ObjectOutputStream(s.getOutputStream());
             mensaje.writeObject(txtMensajeServer.getText());
-            
+
             //s.close();
             //ss.close();
-        }catch(IOException ex){         
-        
+        } catch (IOException ex) {
+
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

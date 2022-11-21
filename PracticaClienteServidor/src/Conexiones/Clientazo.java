@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Conexiones;
 
 import java.io.DataInputStream;
@@ -10,17 +6,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/**
- *
- * @author axelm
- */
 public class Clientazo extends javax.swing.JFrame {
 
     static Socket s;
     static DataInputStream din;
     static DataOutputStream dout;
     static ArrayList arr = new ArrayList();
-    
+
     public Clientazo() {
         initComponents();
     }
@@ -88,13 +80,13 @@ public class Clientazo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        try{
-        String msgout = "";
-        msgout=txtMensajeCliente.getText().trim();
-        arr.add(msgout);
-        dout.writeUTF(msgout);
-        }catch(IOException e){
-            
+        try {
+            String msgout = "";
+            msgout = txtMensajeCliente.getText().trim();
+            arr.add(msgout);
+            dout.writeUTF(msgout);
+        } catch (IOException e) {
+
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
@@ -108,21 +100,22 @@ public class Clientazo extends javax.swing.JFrame {
                 new Clientazo().setVisible(true);
             }
         });
-        
-        try{
-            s = new Socket("localhost",4999);
+
+        try {
+            s = new Socket("localhost", 4999); // Modificar por IP
             din = new DataInputStream(s.getInputStream());
             dout = new DataOutputStream(s.getOutputStream());
-            String msgin="";
-            
-            while(!msgin.equals("exit")){
-                msgin=din.readUTF();
-                txtMensajesCliente.setText(txtMensajesCliente.getText().trim()+"\nServer: "+msgin);
+
+            String msgin = "";
+
+            while (!msgin.equals("exit")) {
+                msgin = din.readUTF();
+                txtMensajesCliente.setText(txtMensajesCliente.getText().trim() + "\nServer: " + msgin);
             }
-        }catch(IOException e){
-            
+        } catch (IOException e) {
+
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
